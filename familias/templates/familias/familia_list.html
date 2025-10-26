@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Lista de Famílias{% endblock %}
+{% block content %}
+  <h1>Famílias cadastradas</h1>
+
+  <!-- Botões -->
+  <div class="mb-3">
+    <a class="btn btn-primary" href="{% url 'familia_create' %}">Novo cadastro</a>
+    <a class="btn btn-success" href="{% url 'familia_export_csv' %}">Exportar CSV</a>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th><th>Telefone</th><th>Pessoas</th><th>Recebeu (AAAA-MM)</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in familias %}
+      <tr>
+        <td><a href="{% url 'familia_detail' f.pk %}">{{ f.nome_responsavel }}</a></td>
+        <td>{{ f.telefone }}</td>
+        <td>{{ f.numero_pessoas }}</td>
+        <td>{{ f.recebeu_ano_mes }}</td>
+        <td>
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'familia_update' f.pk %}">Editar</a>
+          <a class="btn btn-sm btn-outline-danger" href="{% url 'familia_delete' f.pk %}">Excluir</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">Nenhuma família cadastrada.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if is_paginated %}
+    <nav>
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}

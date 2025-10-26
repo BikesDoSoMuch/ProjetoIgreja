@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ familia.nome_responsavel }}</h1>
+  <dl class="row">
+    <dt class="col-sm-3">Endereço</dt><dd class="col-sm-9">{{ familia.endereco }}</dd>
+    <dt class="col-sm-3">Telefone</dt><dd class="col-sm-9">{{ familia.telefone }}</dd>
+    <dt class="col-sm-3">Número de pessoas</dt><dd class="col-sm-9">{{ familia.numero_pessoas }}</dd>
+    <dt class="col-sm-3">Renda mensal</dt><dd class="col-sm-9">{{ familia.renda_mensal }}</dd>
+    <dt class="col-sm-3">Recebeu</dt><dd class="col-sm-9">{{ familia.recebeu_ano_mes }}</dd>
+    <dt class="col-sm-3">Observações</dt><dd class="col-sm-9">{{ familia.observacoes }}</dd>
+  </dl>
+  <a class="btn btn-outline-secondary" href="{% url 'familia_update' familia.pk %}">Editar</a>
+  <a class="btn btn-outline-danger" href="{% url 'familia_delete' familia.pk %}">Excluir</a>
+  <a class="btn btn-secondary" href="{% url 'familia_list' %}">Voltar</a>
+{% endblock %}
