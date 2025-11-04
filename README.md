@@ -73,6 +73,12 @@ python manage.py createsuperuser
     # senha: 123
 
 # 6. Rode o servidor de desenvolvimento
+python -m venv venv
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser   # se necessário
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt || pip install "Django==5.2.7"
+python manage.py migrate
+python manage.py createsuperuser
 python manage.py runserver
 
 # 7. Acesse o sistema pelo navegador
